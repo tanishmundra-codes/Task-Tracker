@@ -1,0 +1,20 @@
+{
+  "name": "task-tracker",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000T\u0000a\u0000s\u0000k\u0000-\u0000T\u0000r\u0000a\u0000c\u0000k\u0000e\u0000r\u0000\r\u0000 \u0000",
+  "homepage": "https://github.com/tanishmundra-codes/Task-Tracker#readme",
+  "bugs": {
+    "url": "https://github.com/tanishmundra-codes/Task-Tracker/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tanishmundra-codes/Task-Tracker.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
