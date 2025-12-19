@@ -1,34 +1,46 @@
 import fs from 'fs';
+import { connect } from 'http2';
 import { json } from 'stream/consumers';
 
-const args = process.argv.slice(2);
 // remove starting commands ['node', 'filename']
+const args = process.argv.slice(2);
 
-// add command
-const addCmd = args[0];
+const cmd = args[0];
 const task = args[1];
-const description = args[2];
+const idNum = args[2];
+const description = args[3];
+const ID = Math.random(1, 100);
+const now = new Date();
 
-let taskObj = JSON.stringify({
+let newTask = {
         "name": task,
-        "ID" : 1,
+        "ID" : ID,
         "description": description,
-        "status" : "todo"
-    });
+        "status" : "todo",
+        "createdAt" : now.toLocaleString()
+    };
 
-if(addCmd == 'add'){
-    if(fs.existsSync('./task.json')){
-        fs.appendFileSync("./task.json", taskObj);
-        console.log("Adding task...")
-        setTimeout(() => {
-            console.log("Task added sucessfully");
-        }, 1500)
-    }
-    else{
-        fs.writeFileSync('./task.json', taskObj);
-        console.log("Adding task...")
-        setTimeout(() => {
-            console.log("Task added sucessfully");
-        }, 1500)
-    }
+if(cmd == 'add'){
+    
+    console.log(`Task added sucessfully Id: ${ID}`);
+}
+
+if(cmd == 'update'){
+    console.log("Task updated sucessfully");
+}
+
+if(cmd == 'delete'){
+    console.log("Task deleted sucessfully")
+}
+
+if(cmd = 'mark-in-progress'){
+    console.log("Task marked-in-progress sucessfully");
+}
+
+if(cmd == 'mark-done'){
+    console.log("Task marked as done sucessfully");
+}
+
+if(cmd == 'list' || 'list todo' || 'list in-progress'){
+    console.log("List all tasks")
 }
