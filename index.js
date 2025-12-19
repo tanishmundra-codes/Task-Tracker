@@ -23,10 +23,12 @@ let newTask = {
 let addTask = [];
 
 if (cmd == 'add') {
-    // File exits
+    
     if (fs.existsSync("./task.json")) {
+        // read existing data
         let existingData = fs.readFileSync("./task.json", "utf-8");
 
+        // merge existing data with new data
         if (existingData.length > 0) {
             addTask = JSON.parse(existingData);
         }
@@ -35,8 +37,21 @@ if (cmd == 'add') {
     console.log("Adding task...");
 
     setTimeout(() => {
+        // write merged data to file
         fs.writeFileSync("./task.json", JSON.stringify(addTask, null, 2));
         console.log(`Task added sucessfully, ID: ${ID}`);
     }, 1500)
     
+}
+
+if (cmd == 'list'){
+    try{
+        let tasks = fs.readFileSync("./task.json", "utf-8");
+        // addTask = []
+        addTask = JSON.parse(tasks);
+        // addtask = [{Some task}]
+        console.log(addTask);
+    }catch(err){
+        console.log("Task list is empty");
+    }
 }
