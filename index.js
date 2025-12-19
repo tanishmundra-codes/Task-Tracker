@@ -24,24 +24,28 @@ let newTask = {
 let addTask = [];
 
 if (cmd == 'add') {
+    try {
+        if (fs.existsSync("./task.json")) {
+            // read existing data
+            let existingData = fs.readFileSync("./task.json", "utf-8");
 
-    if (fs.existsSync("./task.json")) {
-        // read existing data
-        let existingData = fs.readFileSync("./task.json", "utf-8");
-
-        // merge existing data with new data
-        if (existingData.length > 0) {
-            addTask = JSON.parse(existingData);
+            // merge existing data with new data
+            if (existingData.length > 0) {
+                addTask = JSON.parse(existingData);
+            }
         }
-    }
-    addTask.push(newTask);
-    console.log("Adding task...");
+        addTask.push(newTask);
+        console.log("Adding task...");
 
-    setTimeout(() => {
-        // write merged data to file
-        fs.writeFileSync("./task.json", JSON.stringify(addTask, null, 2));
-        console.log(`Task added sucessfully, ID: ${ID}`);
-    }, 1500)
+        setTimeout(() => {
+            // write merged data to file
+            fs.writeFileSync("./task.json", JSON.stringify(addTask, null, 2));
+            console.log(`Task added sucessfully, ID: ${ID}`);
+        }, 1500)
+    } catch (error) {
+        console.log("Adding task unsucessfull", error);
+    }
+
 
 }
 
@@ -61,7 +65,7 @@ if (cmd == "update") {
     try {
         let tasks = fs.readFileSync("./task.json", "utf-8");
         addTask = JSON.parse(tasks);
-   
+
         for (let i = 0; i < addTask.length; i++) {
             if (addTask[i].ID == idNum) {
                 addTask[i].name = newTask.name;
@@ -70,8 +74,8 @@ if (cmd == "update") {
         fs.writeFileSync("./task.json", JSON.stringify(addTask));
         console.log("Task upadted sucessfully");
 
-    }catch(err){
+    } catch (err) {
         console.log("Task not update", err);
     }
-    
+
 }
