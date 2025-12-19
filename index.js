@@ -9,38 +9,34 @@ const cmd = args[0];
 const task = args[1];
 const idNum = args[2];
 const description = args[3];
-const ID = Math.random(1, 100);
+const ID = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
 const now = new Date();
 
 let newTask = {
-        "name": task,
-        "ID" : ID,
-        "description": description,
-        "status" : "todo",
-        "createdAt" : now.toLocaleString()
-    };
+    "name": task,
+    "ID": ID,
+    "description": description,
+    "status": "todo",
+    "createdAt": now.toLocaleString()
+};
 
-if(cmd == 'add'){
+let addTask = [];
+
+if (cmd == 'add') {
+    // File exits
+    if (fs.existsSync("./task.json")) {
+        let existingData = fs.readFileSync("./task.json", "utf-8");
+
+        if (existingData.length > 0) {
+            addTask = JSON.parse(existingData);
+        }
+    }
+    addTask.push(newTask);
+    console.log("Adding task...");
+
+    setTimeout(() => {
+        fs.writeFileSync("./task.json", JSON.stringify(addTask, null, 2));
+        console.log(`Task added sucessfully, ID: ${ID}`);
+    }, 1500)
     
-    console.log(`Task added sucessfully Id: ${ID}`);
-}
-
-if(cmd == 'update'){
-    console.log("Task updated sucessfully");
-}
-
-if(cmd == 'delete'){
-    console.log("Task deleted sucessfully")
-}
-
-if(cmd = 'mark-in-progress'){
-    console.log("Task marked-in-progress sucessfully");
-}
-
-if(cmd == 'mark-done'){
-    console.log("Task marked as done sucessfully");
-}
-
-if(cmd == 'list' || 'list todo' || 'list in-progress'){
-    console.log("List all tasks")
 }
